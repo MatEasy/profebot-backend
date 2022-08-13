@@ -1,20 +1,19 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
-    java: coretto17
+      java: corretto11
   pre_build:
     commands:
-      - echo In the pre_build phase...
-      - mvn test
+      - echo Nothing to do in the pre_build phase...
   build:
     commands:
-      - echo Build completed on `date`
-      - mvn package
+      - echo Build started on `date`
+      - mvn install
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/*.jar
-  discard-paths: yes
+    - target/messageUtil-1.0.jar
