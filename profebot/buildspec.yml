@@ -14,8 +14,8 @@ phases:
       - mvn install
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo post build started on `date`
+      - mv build/libs/*.jar app.jar
 artifacts:
   files:
-    - target/messageUtil-1.0.jar
-  base-directory: profebot
+    - app.jar
