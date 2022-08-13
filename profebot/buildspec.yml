@@ -18,3 +18,4 @@ phases:
 artifacts:
   files:
     - target/messageUtil-1.0.jar
+  base-directory: profebot
