@@ -1,4 +1,4 @@
-package com.example.profebot;
+package com.profebot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
