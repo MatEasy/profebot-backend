@@ -16,7 +16,6 @@ phases:
     commands:
       - echo Build completed on `date`
       - mv target ..
-      - cd ..
 artifacts:
   files:
       - target/messageUtil-1.0.jar
