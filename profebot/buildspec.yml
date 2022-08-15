@@ -18,4 +18,4 @@ phases:
       - mv target ..
 artifacts:
   files:
-      - target/messageUtil-1.0.jar
+      - 'target/messageUtil-1.0.jar'
