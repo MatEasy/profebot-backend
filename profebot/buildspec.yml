@@ -18,5 +18,4 @@ phases:
       - mv target ..
 artifacts:
   files:
-      - ./messageUtil-1.0.jar
-  discard-paths: yes
+      - messageUtil-1.0.jar
