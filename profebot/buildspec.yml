@@ -16,6 +16,9 @@ phases:
     commands:
       - echo Build completed on `date`
       - mv target ..
+      - cd ..
+      - cd target
+      - mv profebot-0.0.1-SNAPSHOT.jar application.jar
 artifacts:
   files:
-      - target/profebot-0.0.1-SNAPSHOT.jar
+      - target/application.jar
