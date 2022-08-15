@@ -16,9 +16,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - mv target ..
-      - ls
-      - cd ..
-      - ls
 artifacts:
   files:
-      - target/messageUtil-1.0.jar
+      - messageUtil-1.0.jar
+  discard-paths: yes
