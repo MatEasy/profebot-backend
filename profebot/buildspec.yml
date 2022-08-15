@@ -19,7 +19,7 @@ phases:
       - cd ..
       - cd target
       - mv profebot-0.0.1-SNAPSHOT.jar application.jar
-      - cp application.py /.
+      - cp application.jar /.
 artifacts:
   files:
       - application.jar
