@@ -18,4 +18,5 @@ phases:
       - mv target ..
 artifacts:
   files:
-      - messageUtil-1.0.jar
+      - target/messageUtil-1.0.jar
+  base-directory: './'
