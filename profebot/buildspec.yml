@@ -15,12 +15,6 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - cd target
-      - ls
-      - cd ..
-      - cd src
-      - cd profebot/target
-      - ls
 artifacts:
   files:
-      - target/profebot-0.0.1-SNAPSHOT.jar
+      - target/messageUtil-1.0.jar
