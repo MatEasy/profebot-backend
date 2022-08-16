@@ -1,7 +1,7 @@
 package com.profebot.controller;
 
 import com.profebot.model.Exercise;
-import com.profebot.model.MultipleChoiceStep;
+import com.profebot.model.Step;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,18 +20,13 @@ public class ResolutorController {
     }
 
     @PostMapping("/api/exercise-resolution")
-    public List<MultipleChoiceStep> ExerciseResolution(@RequestBody Exercise excercise){
-        List<MultipleChoiceStep> stepList = new ArrayList<>();
+    public List<Step> ExerciseResolution(@RequestBody Exercise excercise){
+        List<Step> stepList = new ArrayList<>();
 
         //Mock step
-        MultipleChoiceStep step = new MultipleChoiceStep(
+        Step step = new Step(
                 "Igualar ecuacion a dos",
-                "x + 1 = 2",
-                "Igualar ecuacion a dos",
-                "x + 1 = 2",
-                "Igualar ecuacion a dos",
-                "x + 1 = 2",
-                0
+                "x + 1 = 2"
                 );
 
         stepList.add(step);
