@@ -16,7 +16,7 @@ public class ResolutorService {
   HashMap<ExcerciseTag, IResolutor> strategies = new HashMap<>();
 
   public ResolutorService() {
-    strategies.put(ExcerciseTag.Equation, new EquationResolutor(new SimplifyService()));
+    strategies.put(ExcerciseTag.Equation, new EquationResolutor(new SimplifyService(), new JustificationsService()));
     strategies.put(ExcerciseTag.Function, new FunctionResolutor(new SimplifyService()));
     strategies.put(ExcerciseTag.Polynomial, new PolynomialResolutor());
   }

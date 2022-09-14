@@ -1,27 +1,28 @@
 package com.profebot.resolutors;
 
-import com.profebot.exceptions.InvalidExpressionException;
 import com.profebot.model.Step;
 import com.profebot.parser.Parser;
+import com.profebot.service.JustificationsService;
 import com.profebot.service.SimplifyService;
 import com.profebot.structures.parserStructures.Tree;
 import com.profebot.structures.parserStructures.TreeNode;
 import com.profebot.structures.resolutorStructures.EquationStatus;
 import com.profebot.structures.resolutorStructures.NodeStatus;
-import com.profebot.structures.resolutorStructures.StepOptionInfo;
 import com.profebot.utils.TreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class EquationResolutor implements IResolutor{
-
     SimplifyService simplifyService;
+    JustificationsService justificationsService;
 
     @Autowired
-    public EquationResolutor(SimplifyService simplifyService) {
+    public EquationResolutor(SimplifyService simplifyService, JustificationsService justificationsService) {
         this.simplifyService = simplifyService;
+        this.justificationsService = justificationsService;
     }
 
     public List<Step> SolveExercise(String exercise) {
@@ -32,25 +33,21 @@ public class EquationResolutor implements IResolutor{
         List<Step> result = new ArrayList<>();
 
         for(EquationStatus e: steps){
-
-            Tree originalEquation = e.getOldEquation();
-
-            String equationBase = originalEquation.toExpression();
+            // Te la ecuacion del paso actual
             String newEquationBase = e.getNewEquation().toExpression();
 
-            //Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType(), null);
-            //String summary = justifications.get("summary");
-            StepOptionInfo stepOptionInfo = new StepOptionInfo("",
-                    newEquationBase,
-                    "");
+            Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType());
 
-            String optionA =  stepOptionInfo.getOptionText();
-            String equationOptionA = stepOptionInfo.getEquationText();
+            // Justificación general
+            String option =  justifications.get("option");
 
-            // Justificaciones
-            String correctOptionJustification = stepOptionInfo.getJustificationText();
+            // Justificacion más detallada
+            String correctOptionJustification = justifications.get("correctOptionJustification");
 
-            Step multipleChoiceStep = new Step(optionA, equationOptionA);
+            // Justificación resumida
+            String summary = justifications.get("summary");
+
+            Step multipleChoiceStep = new Step(option, newEquationBase);
             result.add(multipleChoiceStep);
         }
 
