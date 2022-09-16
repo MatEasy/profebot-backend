@@ -103,7 +103,7 @@ public class JustificationsService {
                     COLLECT_AND_COMBINE_LIKE_TERMS_SUMMARY.getJustification());
         }
 
-      /*  if(source.getDescrip().equals(COLLECT_CONSTANT_EXPONENTS.getDescrip())
+        if(source.getDescrip().equals(COLLECT_CONSTANT_EXPONENTS.getDescrip())
                 || source.getDescrip().equals(COLLECT_POLYNOMIAL_EXPONENTS.getDescrip())){
             return createTextsFrom(
                     COLLECT_CONSTANT_EXPONENTS_OPTION.getJustification(),
@@ -191,7 +191,7 @@ public class JustificationsService {
         }
 
         if(source.getDescrip().equals(MULTIPLY_DENOMINATORS.getDescrip())){
-            return createTextsFrom(context,
+            return createTextsFrom(
                     MULTIPLY_DENOMINATORS_OPTION.getJustification(),
                     MULTIPLY_DENOMINATORS_JUSTIFICATION.getJustification(),
                     MULTIPLY_DENOMINATORS_SUMMARY.getJustification());
@@ -397,7 +397,7 @@ public class JustificationsService {
                     FACTOR_SUM_PRODUCT_RULE_OPTION.getJustification(),
                     FACTOR_SUM_PRODUCT_RULE_JUSTIFICATION.getJustification(),
                     FACTOR_SUM_PRODUCT_RULE_SUMMARY.getJustification());
-        }*/
+        }
 
         // TODO: BREAK_UP_TERM
 
