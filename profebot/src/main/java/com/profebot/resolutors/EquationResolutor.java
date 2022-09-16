@@ -33,7 +33,7 @@ public class EquationResolutor implements IResolutor{
         List<Step> result = new ArrayList<>();
 
         for(EquationStatus e: steps){
-            // Te la ecuacion del paso actual
+            // Te da la ecuacion del paso actual
             String newEquationBase = e.getNewEquation().toExpression();
 
             Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType());
@@ -47,7 +47,7 @@ public class EquationResolutor implements IResolutor{
             // Justificación resumida
             String summary = justifications.get("summary");
 
-            Step multipleChoiceStep = new Step(option, newEquationBase);
+            Step multipleChoiceStep = new Step(option, newEquationBase, correctOptionJustification);
             result.add(multipleChoiceStep);
         }
 

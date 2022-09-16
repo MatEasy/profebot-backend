@@ -493,10 +493,10 @@ public class FunctionResolutor implements IResolutor {
     if (functionType.equals(FunctionType.INVALID)) {
       throw new RuntimeException("¡Funcion invalida!");
     }
-    Step domainStep = new Step("Dominio", getDomain(exercise, functionType));
-    Step imageStep = new Step("Imagen", getImage(exercise, functionType));
-    Step rootsSteps = new Step("Raíces", getRoots(exercise, functionType));
-    Step originStep = new Step("Ordenada a la origen", getOrigin(exercise, functionType));
+    Step domainStep = new Step("Dominio", getDomain(exercise, functionType), null);
+    Step imageStep = new Step("Imagen", getImage(exercise, functionType), null);
+    Step rootsSteps = new Step("Raíces", getRoots(exercise, functionType), null);
+    Step originStep = new Step("Ordenada a la origen", getOrigin(exercise, functionType), null);
     List<Step> stepList = new ArrayList<>();
     stepList.add(domainStep);
     stepList.add(imageStep);
