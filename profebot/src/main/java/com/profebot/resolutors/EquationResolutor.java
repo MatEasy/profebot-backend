@@ -36,7 +36,10 @@ public class EquationResolutor implements IResolutor{
             // Te da la ecuacion del paso actual
             String newEquationBase = e.getNewEquation().toExpression();
 
-            Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType());
+            //TODO: Mover getRootOfEquation a un nuevo service (ExpressionsService)
+            String comparatorOperator = getRootOfEquation(newEquationBase);
+
+            Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType(), comparatorOperator);
 
             // Justificación general
             String option =  justifications.get("option");
@@ -52,6 +55,22 @@ public class EquationResolutor implements IResolutor{
         }
 
         return result;
+    }
+
+    public static String getRootOfEquation(String infixEquation){
+        if(infixEquation.contains("<=")){
+            return "<=";
+        }else if(infixEquation.contains(">=")){
+            return ">=";
+        }else if(infixEquation.contains("<")){
+            return "<";
+        }else if(infixEquation.contains(">")){
+            return ">";
+        }else if(infixEquation.contains("!=")){
+            return "!=";
+        }
+
+        return "=";
     }
 
     private Tree getTree(String exercise) {
