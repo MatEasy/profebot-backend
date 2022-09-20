@@ -1,5 +1,7 @@
 package com.profebot.resolutors;
 
+import com.profebot.enums.EquationOptionType;
+import com.profebot.model.EquationOption;
 import com.profebot.model.Step;
 import com.profebot.parser.Parser;
 import com.profebot.service.JustificationsService;
@@ -36,6 +38,9 @@ public class EquationResolutor implements IResolutor{
             // Te da la ecuacion del paso actual
             String newEquationBase = e.getNewEquation().toExpression();
 
+            List<EquationOption> equationOptions = new ArrayList<>();
+            equationOptions.add(new EquationOption(newEquationBase, EquationOptionType.LATEX));
+
             //TODO: Mover getRootOfEquation a un nuevo service (ExpressionsService)
             String comparatorOperator = getRootOfEquation(newEquationBase);
 
@@ -50,7 +55,7 @@ public class EquationResolutor implements IResolutor{
             // Justificación resumida
             String summary = justifications.get("summary");
 
-            Step multipleChoiceStep = new Step(option, newEquationBase, correctOptionJustification);
+            Step multipleChoiceStep = new Step(option, equationOptions, correctOptionJustification);
             result.add(multipleChoiceStep);
         }
 

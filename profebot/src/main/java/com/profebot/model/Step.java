@@ -1,18 +1,20 @@
 package com.profebot.model;
 
+import java.util.List;
+
 public class Step {
     // Prosa de la opción
     private String option;
 
     // Ecuación de la opción. Ejemplo: 1+1/2=2x+3
-    private String equationOption;
+    private List<EquationOption> equationOptions;
 
     // Prosa más detallada de la opción
     private String info;
 
-    public Step(String option, String equationOption, String info) {
+    public Step(String option, List<EquationOption> equationOptions, String info) {
         this.option = option;
-        this.equationOption = equationOption;
+        this.equationOptions = equationOptions;
         this.info = info;
     }
 
@@ -20,12 +22,12 @@ public class Step {
         return option;
     }
 
-    public String getEquationOption() {
-        return equationOption;
+    public List<EquationOption> getEquationOptions() {
+        return equationOptions;
     }
 
-    public void setEquationOption(String equationOption) {
-        this.equationOption = equationOption;
+    public void setEquationOption(List<EquationOption> equationOption) {
+        this.equationOptions = equationOption;
     }
 
     public String getInfo() {
