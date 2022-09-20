@@ -277,15 +277,21 @@ public class FunctionResolutor implements IResolutor {
     List<EquationOption> image = new ArrayList<>();
     switch (equationType) {
       case CONSTANT:
-        image.add(new EquationOption("En estas funciones del tipo constante, el dominio son todos los reales, por lo que la imagen también lo es.", EquationOptionType.TEXT));
+        image.add(new EquationOption(
+            "En estas funciones del tipo constante, el dominio son todos los reales, por lo que la imagen también lo es.",
+            EquationOptionType.TEXT));
         break;
       case LINEAR:
-        image.add(new EquationOption("En estas funciones del tipo lineal, el dominio son todos los reales, por lo que la imagen también lo es.", EquationOptionType.TEXT));
+        image.add(
+            new EquationOption("En estas funciones del tipo lineal, el dominio son todos los reales, por lo que la imagen también lo es.",
+                EquationOptionType.TEXT));
         break;
       case QUADRATIC:
         //Special Cases in Quadratic
         if (equation == "X^2") {
-          image.add(new EquationOption("En el tipo de función cuadrática, la imagen son los reales positivos, a pesar de que el dominio acepta todos los reales.", EquationOptionType.TEXT));
+          image.add(new EquationOption(
+              "En el tipo de función cuadrática, la imagen son los reales positivos, a pesar de que el dominio acepta todos los reales.",
+              EquationOptionType.TEXT));
         } else {
           //Analizo concavidad e intervalo
           String concavidad;
@@ -304,7 +310,8 @@ public class FunctionResolutor implements IResolutor {
 
               image.add(new EquationOption("Esta función cuadrática tiene una ", EquationOptionType.TEXT));
               image.add(new EquationOption(concavidad + ", ", EquationOptionType.TEXT));
-              image.add(new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
+              image.add(
+                  new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
               image.add(new EquationOption(intervalo, EquationOptionType.LATEX));
               image.add(new EquationOption(". Surge de resolver la inecuacion: ", EquationOptionType.TEXT));
               image.add(new EquationOption(second_equation, EquationOptionType.LATEX));
@@ -328,7 +335,8 @@ public class FunctionResolutor implements IResolutor {
               //intervalo = (equationMapped.get(1) == null) ? "[ 0, + \\infty )" : "[ \\frac{" + equationMapped.get(1) + "}{2*" + equationMapped.get(2) + "}, + \\infty)";
               image.add(new EquationOption("Esta función cuadrática tiene una ", EquationOptionType.TEXT));
               image.add(new EquationOption(concavidad + ", ", EquationOptionType.TEXT));
-              image.add(new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
+              image.add(
+                  new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
               image.add(new EquationOption(intervalo, EquationOptionType.LATEX));
               image.add(new EquationOption(". Surge de resolver la inecuacion: ", EquationOptionType.TEXT));
               image.add(new EquationOption(second_equation, EquationOptionType.LATEX));
@@ -356,7 +364,9 @@ public class FunctionResolutor implements IResolutor {
 
         String firstEquation = "y = \\frac{a}{c}";
 
-        image.add(new EquationOption("La imagen en las funciones homográficas se define por la presencia de una Asíntota Horizontal. Esta asíntota o recta se expresa como: ", EquationOptionType.TEXT));
+        image.add(new EquationOption(
+            "La imagen en las funciones homográficas se define por la presencia de una Asíntota Horizontal. Esta asíntota o recta se expresa como: ",
+            EquationOptionType.TEXT));
         image.add(new EquationOption(firstEquation, EquationOptionType.LATEX));
         image.add(new EquationOption(". La imagen de la función equivale a: ", EquationOptionType.TEXT));
         image.add(new EquationOption(solution, EquationOptionType.LATEX));
@@ -472,15 +482,20 @@ public class FunctionResolutor implements IResolutor {
       String denominatorHomographic = equation.substring(divisionPosition + 1).replaceAll("\\(", "").replaceAll("\\)", "");
       Map<Integer, Double> denominatorMapped = (new Parser()).parsePolinomialToHashMap(denominatorHomographic);
       if (denominatorMapped.get(0) == null) {
-        origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
+        origin.add(new EquationOption(
+            "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.",
+            EquationOptionType.TEXT));
       } else {
         try {
           function = solveOrigin(equation);
 
-          origin.add(new EquationOption("En la función, cuando la X toma el valor 0, la ordenada al origen vale: ", EquationOptionType.TEXT));
+          origin
+              .add(new EquationOption("En la función, cuando la X toma el valor 0, la ordenada al origen vale: ", EquationOptionType.TEXT));
           origin.add(new EquationOption(function, EquationOptionType.LATEX));
         } catch (InvalidExpressionException e) {
-          origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
+          origin.add(new EquationOption(
+              "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.",
+              EquationOptionType.TEXT));
         }
       }
     } else {
@@ -490,7 +505,9 @@ public class FunctionResolutor implements IResolutor {
         origin.add(new EquationOption("En la función, cuando la X toma el valor 0, la ordenada al origen vale: ", EquationOptionType.TEXT));
         origin.add(new EquationOption(function, EquationOptionType.LATEX));
       } catch (InvalidExpressionException e) {
-        origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
+        origin.add(new EquationOption(
+            "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.",
+            EquationOptionType.TEXT));
       }
     }
     return origin;
@@ -501,10 +518,14 @@ public class FunctionResolutor implements IResolutor {
     if (functionType.equals(FunctionType.INVALID)) {
       throw new RuntimeException("¡Funcion invalida!");
     }
-    Step domainStep = new Step("Dominio", getDomain(exercise, functionType), null);
-    Step imageStep = new Step("Imagen", getImage(exercise, functionType), null);
-    Step rootsSteps = new Step("Raíces", getRoots(exercise, functionType), null);
-    Step originStep = new Step("Ordenada a la origen", getOrigin(exercise, functionType), null);
+    Step domainStep = new Step("Dominio", getDomain(exercise, functionType),
+        "En matemáticas, el dominio (conjunto de definición o conjunto de partida) de una función es el conjunto de existencia de ella misma, es decir, los valores para los cuales la función está definida.");
+    Step imageStep = new Step("Imagen", getImage(exercise, functionType),
+        "La imagen es el rango de valores de la función f(x) para los que existe un valor de x. La forma de calcularlo dependerá del tipo de función que analizamos.");
+    Step rootsSteps = new Step("Raíces", getRoots(exercise, functionType),
+        "En matemática, se conoce como raíz (o cero) de un polinomio o de una función f(x) a todo valor x (perteneciente al dominio de la función) tal que se cumpla la siguiente condición: f(x)=0");
+    Step originStep = new Step("Ordenada a la origen", getOrigin(exercise, functionType),
+        "La ordenada al origen nos indica cuándo una función se intersecta con el eje Y, que es el eje de ordenadas. Para lograr esto reemplazamos la incógnita de la función por 0, es decir, hallamos el valor de la función F(x) cuando x = 0.");
     List<Step> stepList = new ArrayList<>();
     stepList.add(domainStep);
     stepList.add(imageStep);
