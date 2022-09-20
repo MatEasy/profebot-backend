@@ -1,7 +1,9 @@
 package com.profebot.resolutors;
 
+import com.profebot.enums.EquationOptionType;
 import com.profebot.enums.FunctionType;
 import com.profebot.exceptions.InvalidExpressionException;
+import com.profebot.model.EquationOption;
 import com.profebot.model.Step;
 import com.profebot.parser.Parser;
 import com.profebot.service.SimplifyService;
@@ -271,20 +273,19 @@ public class FunctionResolutor implements IResolutor {
     return intervalBegin.replaceAll("x", "").replaceAll("X", "").replaceAll("=", "");
   }
 
-  private String getImage(String equation, FunctionType equationType) {
-    String image = null;
+  private List<EquationOption> getImage(String equation, FunctionType equationType) {
+    List<EquationOption> image = new ArrayList<>();
     switch (equationType) {
       case CONSTANT:
-        image = "En estas funciones del tipo constante, el dominio son todos los reales, por lo que la imagen también lo es.";
+        image.add(new EquationOption("En estas funciones del tipo constante, el dominio son todos los reales, por lo que la imagen también lo es.", EquationOptionType.TEXT));
         break;
       case LINEAR:
-        image = "En estas funciones del tipo lineal, el dominio son todos los reales, por lo que la imagen también lo es.";
+        image.add(new EquationOption("En estas funciones del tipo lineal, el dominio son todos los reales, por lo que la imagen también lo es.", EquationOptionType.TEXT));
         break;
       case QUADRATIC:
         //Special Cases in Quadratic
         if (equation == "X^2") {
-          image =
-              "En el tipo de función cuadrática, la imagen son los reales positivos, a pesar de que el dominio acepta todos los reales.";
+          image.add(new EquationOption("En el tipo de función cuadrática, la imagen son los reales positivos, a pesar de que el dominio acepta todos los reales.", EquationOptionType.TEXT));
         } else {
           //Analizo concavidad e intervalo
           String concavidad;
@@ -300,10 +301,13 @@ public class FunctionResolutor implements IResolutor {
             try {
               String intervalBegin = (new Solver()).resolveExpression(equationToSolve + "=x");
               intervalo = "[" + cleanInterval(intervalBegin) + ", + \\infty )";
-              //intervalo = (equationMapped.get(1) == null) ? "[ 0, + \\infty )" : "[ \\frac{" + equationMapped.get(1) + "}{2*" + equationMapped.get(2) + "}, + \\infty)";
-              image = String.format(
-                  "Esta función cuadrática tiene una %s, presentando un mínimo global, el conjunto que representa la imagen es : %s. Surge de resolver la inecuacion: %s",
-                  concavidad, intervalo, second_equation);
+
+              image.add(new EquationOption("Esta función cuadrática tiene una ", EquationOptionType.TEXT));
+              image.add(new EquationOption(concavidad + ", ", EquationOptionType.TEXT));
+              image.add(new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
+              image.add(new EquationOption(intervalo, EquationOptionType.LATEX));
+              image.add(new EquationOption(". Surge de resolver la inecuacion: ", EquationOptionType.TEXT));
+              image.add(new EquationOption(second_equation, EquationOptionType.LATEX));
             } catch (InvalidExpressionException e) {
               e.printStackTrace();
             }
@@ -322,9 +326,12 @@ public class FunctionResolutor implements IResolutor {
                       2);
               intervalo = "(- \\infty , " + intervalBeginInt + " ]";
               //intervalo = (equationMapped.get(1) == null) ? "[ 0, + \\infty )" : "[ \\frac{" + equationMapped.get(1) + "}{2*" + equationMapped.get(2) + "}, + \\infty)";
-              image = String.format(
-                  "Esta función cuadrática tiene una %s, presentando un mínimo global, el conjunto que representa la imagen es : %s. Surge de resolver la inecuación: %s.",
-                  concavidad, intervalo, second_equation);
+              image.add(new EquationOption("Esta función cuadrática tiene una ", EquationOptionType.TEXT));
+              image.add(new EquationOption(concavidad + ", ", EquationOptionType.TEXT));
+              image.add(new EquationOption("presentando un mínimo global, el conjunto que representa la imagen es: ", EquationOptionType.TEXT));
+              image.add(new EquationOption(intervalo, EquationOptionType.LATEX));
+              image.add(new EquationOption(". Surge de resolver la inecuacion: ", EquationOptionType.TEXT));
+              image.add(new EquationOption(second_equation, EquationOptionType.LATEX));
             } catch (InvalidExpressionException e) {
               e.printStackTrace();
             }
@@ -349,11 +356,10 @@ public class FunctionResolutor implements IResolutor {
 
         String firstEquation = "y = \\frac{a}{c}";
 
-        image = String.format(
-            "La imagen en las funciones homográficas se define por la presencia de una Asíntota Horizontal. Esta asíntota o recta se expresa como: %s. La imagen de la función equivale a: %s",
-            firstEquation, solution);
-
-        //setTrivialPopUp("Función Homográfica", getString(R.string.explicacionImagenHomografica, solucion));
+        image.add(new EquationOption("La imagen en las funciones homográficas se define por la presencia de una Asíntota Horizontal. Esta asíntota o recta se expresa como: ", EquationOptionType.TEXT));
+        image.add(new EquationOption(firstEquation, EquationOptionType.LATEX));
+        image.add(new EquationOption(". La imagen de la función equivale a: ", EquationOptionType.TEXT));
+        image.add(new EquationOption(solution, EquationOptionType.LATEX));
         break;
       default:
         System.out.println("Error Imagen Funcion. NO encontro ningun tipo de funcion para analizar la imagen");
@@ -362,8 +368,8 @@ public class FunctionResolutor implements IResolutor {
     return image;
   }
 
-  private String getDomain(String equation, FunctionType equationType) {
-    String domain = null;
+  private List<EquationOption> getDomain(String equation, FunctionType equationType) {
+    List<EquationOption> domain = new ArrayList<>();
     switch (equationType) {
       case HOMOGRAPHIC: {
         String status = null;
@@ -377,17 +383,18 @@ public class FunctionResolutor implements IResolutor {
           //status = (new ResolutorService()).resolveExpression(denominatorHomographic).substring(2);
           //status = "X = " + status;
         }
-        domain = "El dominio de la función aplica a todos los reales excepto cuando:" + status;
+        domain.add(new EquationOption("El dominio de la función aplica a todos los reales excepto cuando:", EquationOptionType.TEXT));
+        domain.add(new EquationOption(status, EquationOptionType.LATEX));
         break;
       }
       case CONSTANT:
       case LINEAR:
       case QUADRATIC: {
-        domain = "El dominio son todos los reales, es decir cualquier valor";
+        domain.add(new EquationOption("El dominio son todos los reales, es decir cualquier valor", EquationOptionType.TEXT));
         break;
       }
       case INVALID:
-        domain = "La función es inválida.";
+        domain.add(new EquationOption("La función es inválida.", EquationOptionType.TEXT));
         break;
       default:
         break;
@@ -400,11 +407,11 @@ public class FunctionResolutor implements IResolutor {
     return !startWith.equals("x=");
   }
 
-  private String getRoots(String equation, FunctionType equationType) {
-    String roots = null;
+  private List<EquationOption> getRoots(String equation, FunctionType equationType) {
+    List<EquationOption> roots = new ArrayList<>();
     switch (equationType) {
       case CONSTANT: {
-        roots = "La función no tiene raíces, porque es constante.";
+        roots.add(new EquationOption("La función no tiene raíces, porque es constante.", EquationOptionType.TEXT));
         break;
       }
       case HOMOGRAPHIC:
@@ -414,9 +421,11 @@ public class FunctionResolutor implements IResolutor {
         try {
           String status = (new Solver()).resolveExpression(rootExpression);
           if (status.equals("NO_STEPS") || startsWithResolvingRoot(status)) {
-            roots = "La función no tiene raíces enteras.";
+            roots.add(new EquationOption("La función no tiene raíces enteras.", EquationOptionType.TEXT));
+
           } else {
-            roots = String.format("La función posee las siguientes raices:%s", status);
+            roots.add(new EquationOption("La función posee las siguientes raices: ", EquationOptionType.TEXT));
+            roots.add(new EquationOption(status, EquationOptionType.LATEX));
           }
 
         } catch (InvalidExpressionException e) {
@@ -425,7 +434,7 @@ public class FunctionResolutor implements IResolutor {
         break;
       }
       case INVALID:
-        roots = "La función es inválida.";
+        roots.add(new EquationOption("La función es inválida.", EquationOptionType.TEXT));
         break;
       default:
         break;
@@ -455,34 +464,33 @@ public class FunctionResolutor implements IResolutor {
     return function;
   }
 
-  private String getOrigin(String equation, FunctionType equationType) {
-    String origin = null;
+  private List<EquationOption> getOrigin(String equation, FunctionType equationType) {
+    List<EquationOption> origin = new ArrayList<>();
     String function;
     if (equationType == FunctionType.HOMOGRAPHIC) {
       int divisionPosition = equation.lastIndexOf("/");
       String denominatorHomographic = equation.substring(divisionPosition + 1).replaceAll("\\(", "").replaceAll("\\)", "");
       Map<Integer, Double> denominatorMapped = (new Parser()).parsePolinomialToHashMap(denominatorHomographic);
       if (denominatorMapped.get(0) == null) {
-        origin =
-            "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.";
+        origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
       } else {
         try {
           function = solveOrigin(equation);
-          origin = String.format("En la función, cuando la X toma el valor 0, la ordenada al origen vale:", function);
 
+          origin.add(new EquationOption("En la función, cuando la X toma el valor 0, la ordenada al origen vale: ", EquationOptionType.TEXT));
+          origin.add(new EquationOption(function, EquationOptionType.LATEX));
         } catch (InvalidExpressionException e) {
-          origin =
-              "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.";
+          origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
         }
       }
     } else {
       try {
         function = solveOrigin(equation);
-        origin = String.format("En la función, cuando la X toma el valor 0, la ordenada al origen vale: %s.", function);
 
+        origin.add(new EquationOption("En la función, cuando la X toma el valor 0, la ordenada al origen vale: ", EquationOptionType.TEXT));
+        origin.add(new EquationOption(function, EquationOptionType.LATEX));
       } catch (InvalidExpressionException e) {
-        origin =
-            "La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.";
+        origin.add(new EquationOption("La función no tiene ordenada al origen, dado que el dominio de la función excluye al valor x = 0, por lo tanto, la función no se intersecta con el eje Y.", EquationOptionType.TEXT));
       }
     }
     return origin;
