@@ -42,7 +42,7 @@ public enum Justification {
     REMOVE_EXPONENT_BASE_ONE_SUMMARY("Reducir término"),
 
     RESOLVE_DOUBLE_MINUS_OPTION("Reescribir secuencia de dos signos (-), como un signo (+):"),
-    RESOLVE_DOUBLE_MINUS_JUSTIFICATION("Por regla de los signos, dos \"menos\" equivalen a un \"más\". Por ejemplo: 2 - - 3 equivale a 2 + 3."),
+    RESOLVE_DOUBLE_MINUS_JUSTIFICATION("Por regla de los signos, dos 'menos' equivalen a un 'más'. Por ejemplo: 2 - - 3 equivale a 2 + 3."),
     RESOLVE_DOUBLE_MINUS_SUMMARY("Simplificar operadores"),
 
     COLLECT_AND_COMBINE_LIKE_TERMS_OPTION("Agrupar términos numéricos entre sí, y términos con variables entre sí:"),
@@ -65,8 +65,8 @@ public enum Justification {
     BREAK_UP_FRACTION_JUSTIFICATION("Así como en la multiplicación, la división se puede también distribuir a cada uno de los términos de una suma o resta, multiplicando a cada término por la fracción correspondiente."),
     BREAK_UP_FRACTION_SUMMARY("Distribuir fracción"),
 
-    CANCEL_MINUSES_OPTION("Cancelar los signos \"menos\":"),
-    CANCEL_MINUSES_JUSTIFICATION("Por regla de los signos, 2 \"menos\" multiplicados o divididos equivalen a un signo \"más\". Por ejemplo: -1/-3 equivale a 1/3."),
+    CANCEL_MINUSES_OPTION("Cancelar los signos 'menos':"),
+    CANCEL_MINUSES_JUSTIFICATION("Por regla de los signos, 2 'menos' multiplicados o divididos equivalen a un signo 'más'. Por ejemplo: -1/-3 equivale a 1/3."),
     CANCEL_MINUSES_SUMMARY("Simplificar signos"),
 
     CANCEL_TERMS_OPTION("Cancelar términos debido a una división:"),
@@ -158,15 +158,15 @@ public enum Justification {
     MULTIPLY_NTH_ROOTS_SUMMARY("Multiplicar raíces"),
 
     ADD_TO_BOTH_SIDES_OPTION("Sumar a ambos miembros para cancelar términos:"),
-    ADD_TO_BOTH_SIDES_JUSTIFICATION("Para cancelar un término que está restando de un lado del /comparador/, se puede sumar miembro a miembro dicho término; de esta forma, se logrará \"pasar\" dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
+    ADD_TO_BOTH_SIDES_JUSTIFICATION("Para cancelar un término que está restando de un lado del /comparador/, se puede sumar miembro a miembro dicho término; de esta forma, se logrará 'pasar' dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
     ADD_TO_BOTH_SIDES_SUMMARY("Sumar miembro a miembro"),
 
     DIVIDE_FROM_BOTH_SIDES_OPTION("Dividir a ambos miembros para cancelar términos:"),
-    DIVIDE_FROM_BOTH_SIDES_JUSTIFICATION("Para cancelar un término que está multiplicando de un lado del /comparador/, se puede dividir miembro a miembro por dicho término; de esta forma, se logrará \"pasar\" dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
+    DIVIDE_FROM_BOTH_SIDES_JUSTIFICATION("Para cancelar un término que está multiplicando de un lado del /comparador/, se puede dividir miembro a miembro por dicho término; de esta forma, se logrará 'pasar' dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
     DIVIDE_FROM_BOTH_SIDES_SUMMARY("Dividir miembro a miembro"),
 
     MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION_OPTION("Multiplicar a ambos miembros para cancelar términos:"),
-    MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION_JUSTIFICATION("Para cancelar un término que está dividiendo de un lado del /comparador/, se puede multiplicar miembro a miembro por dicho término; de esta forma, se logrará \"pasar\" dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
+    MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION_JUSTIFICATION("Para cancelar un término que está dividiendo de un lado del /comparador/, se puede multiplicar miembro a miembro por dicho término; de esta forma, se logrará 'pasar' dicho término de un lado del /comparador/ al otro, con el objetivo de despejar la X."),
     MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION_SUMMARY("Multiplicar miembro a miembro"),
 
     SIMPLIFY_LEFT_SIDE_OPTION("Simplificar el lado izquierdo del /comparador/:"),
@@ -194,7 +194,7 @@ public enum Justification {
     STATEMENT_IS_FALSE_SUMMARY("Ninguna solución"),
 
     FACTOR_SYMBOL_OPTION("Extraer factor común:"),
-    FACTOR_SYMBOL_JUSTIFICATION("Se puede extraer factor común de \"letra\" o \"número\", en la medida que haya una suma o resta de términos, con operandos repetidos. Por ejemplo: x+3x puede ser factoreado por \"x\", quedando x(3+1)."),
+    FACTOR_SYMBOL_JUSTIFICATION("Se puede extraer factor común de 'letra' o 'número', en la medida que haya una suma o resta de términos, con operandos repetidos. Por ejemplo: x+3x puede ser factoreado por 'x', quedando x(3+1)."),
     FACTOR_SYMBOL_SUMMARY("Factor común"),
 
     FACTOR_DIFFERENCE_OF_SQUARES_OPTION("Aplicar diferencia de cuadrados:"),
