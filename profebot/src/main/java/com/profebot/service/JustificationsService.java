@@ -5,6 +5,8 @@ import com.profebot.structures.resolutorStructures.NodeStatus;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.profebot.enums.Conclusion.*;
+import static com.profebot.enums.ContextOfResolution.*;
 import static com.profebot.enums.Justification.*;
 import static com.profebot.structures.resolutorStructures.NodeStatus.ChangeTypes.*;
 
@@ -479,70 +481,57 @@ public class JustificationsService {
         }
     }
 
-/*    private static Map<String, String> createTextsFrom(int optionId, int justificationId){
-        Map<String, String> justifications = new HashMap<>();
-        justifications.put("option", context.getString(optionId).replace("/comparador/", textOfComparator(ExpressionsManager.comparatorOperator)));
-        justifications.put("incorrectOptionJustification", context.getString(justificationId).replace("/comparador/", textOfComparator(ExpressionsManager.comparatorOperator)));
-        return justifications;
-    }*/
-
-    /*public static Map<String, String> getContextOfResolutionTexts(String contextOfResolution){
-        if(SolvePolynomialActivity.CONTEXT_OF_RESOLUTION_IS_POLYNOMIAL_FACTORIZED.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, POLYNOMIAL_FACTORIZED_FIRST_TEXT, POLYNOMIAL_FACTORIZED_SECOND_TEXT, SolvePolynomialActivity.CONTEXT_OF_RESOLUTION_IS_POLYNOMIAL_FACTORIZED);
+    public static Map<String, String> getContextOfResolutionTexts(String contextOfResolution){
+        if(CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS.equals(contextOfResolution)){
+            return createContextOfResolutionTextsFrom(EQUATION_WITH_FINITE_SOLUTIONS_FIRST_TEXT.getConclusion(), EQUATION_WITH_FINITE_SOLUTIONS_SECOND_TEXT.getConclusion(), CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS);
         }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_DOMAIN.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, DOMAIN_FIRST_TEXT, DOMAIN_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_DOMAIN);
+        if(CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS.equals(contextOfResolution)){
+            return createContextOfResolutionTextsFrom(EQUATION_WITH_INFINITE_SOLUTIONS_FIRST_TEXT.getConclusion(), EQUATION_WITH_INFINITE_SOLUTIONS_SECOND_TEXT.getConclusion(), CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS);
         }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_IMAGE.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, IMAGE_FIRST_TEXT, IMAGE_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_IMAGE);
+        if(CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS.equals(contextOfResolution)){
+            return createContextOfResolutionTextsFrom(EQUATION_WITHOUT_SOLUTIONS_FIRST_TEXT.getConclusion(), EQUATION_WITHOUT_SOLUTIONS_SECOND_TEXT.getConclusion(), CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS);
         }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_ORIGIN_ORD.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, ORIGIN_ORD_FIRST_TEXT, ORIGIN_ORD_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_ORIGIN_ORD);
+        if(CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS.equals(contextOfResolution)){
+            return createContextOfResolutionTextsFrom(INEQUATION_WITH_INTERVAL_SOLUTIONS_FIRST_TEXT.getConclusion(), INEQUATION_WITH_INTERVAL_SOLUTIONS_SECOND_TEXT.getConclusion(), CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS);
         }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_ROOTS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, ROOTS_FIRST_TEXT, ROOTS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_ROOTS);
+        if(CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS.equals(contextOfResolution)){
+            return createContextOfResolutionTextsFrom(INEQUATION_WITHOUT_SOLUTIONS_FIRST_TEXT.getConclusion(), INEQUATION_WITHOUT_SOLUTIONS_SECOND_TEXT.getConclusion(), CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS);
         }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, EQUATION_WITH_FINITE_SOLUTIONS_FIRST_TEXT, EQUATION_WITH_FINITE_SOLUTIONS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS);
-        }
+        return createContextOfResolutionTextsFrom(COMPLEX_SOLUTIONS_FIRST_TEXT.getConclusion(), COMPLEX_SOLUTIONS_SECOND_TEXT.getConclusion(), "complex_solutions");
+    }
 
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, EQUATION_WITH_INFINITE_SOLUTIONS_FIRST_TEXT, EQUATION_WITH_INFINITE_SOLUTIONS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS);
-        }
-
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, EQUATION_WITHOUT_SOLUTIONS_FIRST_TEXT, EQUATION_WITHOUT_SOLUTIONS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS);
-        }
-
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, INEQUATION_WITH_INTERVAL_SOLUTIONS_FIRST_TEXT, INEQUATION_WITH_INTERVAL_SOLUTIONS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS);
-        }
-
-        if(SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS.equals(contextOfResolution)){
-            return createContextOfResolutionTextsFrom(context, INEQUATION_WITHOUT_SOLUTIONS_FIRST_TEXT, INEQUATION_WITHOUT_SOLUTIONS_SECOND_TEXT, SolveEquationActivity.CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS);
-        }
-
-        return createContextOfResolutionTextsFrom(context, COMPLEX_SOLUTIONS_FIRST_TEXT, COMPLEX_SOLUTIONS_SECOND_TEXT, "complex_solutions");
-    }*/
-
-/*    private static Map<String, String> createContextOfResolutionTextsFrom(Context context, int firstTextId, int secondTextId, String type){
+    private static Map<String, String> createContextOfResolutionTextsFrom(String firstText, String secondText, String type){
         Map<String, String> texts = new HashMap<>();
-        texts.put("first", context.getString(firstTextId));
-        texts.put("second", context.getString(secondTextId));
+        texts.put("first", firstText);
+        texts.put("second", secondText);
         texts.put("type", type);
         return texts;
-    }*/
+    }
 
-/*    public static Map<String, String> replacePatterns(Map<String, String> contextOfResolutionTexts, String key, String pattern, String newVal){
+    public static Map<String, String> replacePatterns(Map<String, String> contextOfResolutionTexts, String key, String pattern, String newVal){
         String value = contextOfResolutionTexts.get(key);
         contextOfResolutionTexts.remove(key);
-        contextOfResolutionTexts.put(key, ExpressionsManager.removeDecimals(value.replace(pattern, newVal)));
+        contextOfResolutionTexts.put(key, new ExpressionsService().removeDecimals(value.replace(pattern, newVal)));
         return contextOfResolutionTexts;
-    }*/
+    }
 
+    public static Map<String, String> fixResolutionTextsForRoots(Map<String, String> contextOfResolutionTexts, String lastEquation){
+        String[] members = lastEquation.split("=");
+        try{
+            Double solution = Double.parseDouble(members[1]);
+            contextOfResolutionTexts = replacePatterns(contextOfResolutionTexts, "second", "/raices/", solution + "");
+        }catch (Exception e){
+            String roots = members[1]
+                    .replace("[", "")
+                    .replace("]", "")
+                    .replace(",", ", ");
+            contextOfResolutionTexts = replacePatterns(contextOfResolutionTexts, "second", "/raices/", roots);
+        }
+        return contextOfResolutionTexts;
+    }
 }
