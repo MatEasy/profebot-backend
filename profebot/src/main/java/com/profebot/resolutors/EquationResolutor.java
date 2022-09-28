@@ -79,12 +79,12 @@ public class EquationResolutor implements IResolutor{
         //Armo la conclusión
         List<EquationOption> equationOptions = new ArrayList<>();
 
-        equationOptions.add(new EquationOption(contextOfResolutionTexts.get("first"), EquationOptionType.TEXT));
+        equationOptions.add(new EquationOption(contextOfResolutionTexts.get("first") + ' ', EquationOptionType.TEXT));
 
         EquationStatus originalEquation = steps.get(0);
         equationOptions.add(new EquationOption(originalEquation.getOldEquation().toExpression(), EquationOptionType.LATEX));
 
-        equationOptions.add(new EquationOption(contextOfResolutionTexts.get("second"), EquationOptionType.TEXT));
+        equationOptions.add(new EquationOption(' ' + contextOfResolutionTexts.get("second"), EquationOptionType.TEXT));
 
         Step conclusion = new Step("Conclusión:", equationOptions, null);
         result.add(conclusion);
