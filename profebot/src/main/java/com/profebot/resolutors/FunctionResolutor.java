@@ -400,7 +400,7 @@ public class FunctionResolutor implements IResolutor {
       case CONSTANT:
       case LINEAR:
       case QUADRATIC: {
-        domain.add(new EquationOption("El dominio son todos los reales, es decir cualquier valor", EquationOptionType.TEXT));
+        domain.add(new EquationOption("El dominio son todos los reales, es decir cualquier valor.", EquationOptionType.TEXT));
         break;
       }
       case INVALID:
@@ -518,13 +518,13 @@ public class FunctionResolutor implements IResolutor {
     if (functionType.equals(FunctionType.INVALID)) {
       throw new RuntimeException("¡Funcion invalida!");
     }
-    Step domainStep = new Step("Dominio", getDomain(exercise, functionType),
+    Step domainStep = new Step("Dominio:", getDomain(exercise, functionType),
         "En matemáticas, el dominio (conjunto de definición o conjunto de partida) de una función es el conjunto de existencia de ella misma, es decir, los valores para los cuales la función está definida.");
-    Step imageStep = new Step("Imagen", getImage(exercise, functionType),
+    Step imageStep = new Step("Imagen:", getImage(exercise, functionType),
         "La imagen es el rango de valores de la función f(x) para los que existe un valor de x. La forma de calcularlo dependerá del tipo de función que analizamos.");
-    Step rootsSteps = new Step("Raíces", getRoots(exercise, functionType),
-        "En matemática, se conoce como raíz (o cero) de un polinomio o de una función f(x) a todo valor x (perteneciente al dominio de la función) tal que se cumpla la siguiente condición: f(x)=0");
-    Step originStep = new Step("Ordenada a la origen", getOrigin(exercise, functionType),
+    Step rootsSteps = new Step("Raíces:", getRoots(exercise, functionType),
+        "En matemática, se conoce como raíz (o cero) de un polinomio o de una función f(x) a todo valor x (perteneciente al dominio de la función) tal que se cumpla la siguiente condición: f(x)=0.");
+    Step originStep = new Step("Ordenada a la origen:", getOrigin(exercise, functionType),
         "La ordenada al origen nos indica cuándo una función se intersecta con el eje Y, que es el eje de ordenadas. Para lograr esto reemplazamos la incógnita de la función por 0, es decir, hallamos el valor de la función F(x) cuando x = 0.");
     List<Step> stepList = new ArrayList<>();
     stepList.add(domainStep);
