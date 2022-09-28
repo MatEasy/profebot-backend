@@ -4,6 +4,7 @@ import com.profebot.enums.EquationOptionType;
 import com.profebot.model.EquationOption;
 import com.profebot.model.Step;
 import com.profebot.parser.Parser;
+import com.profebot.service.ExpressionsService;
 import com.profebot.service.JustificationsService;
 import com.profebot.service.SimplifyService;
 import com.profebot.structures.parserStructures.Tree;
@@ -17,14 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.profebot.enums.ContextOfResolution.*;
+
 public class EquationResolutor implements IResolutor{
     SimplifyService simplifyService;
     JustificationsService justificationsService;
+    ExpressionsService expressionsService;
 
     @Autowired
-    public EquationResolutor(SimplifyService simplifyService, JustificationsService justificationsService) {
+    public EquationResolutor(SimplifyService simplifyService, JustificationsService justificationsService, ExpressionsService expressionsService) {
         this.simplifyService = simplifyService;
         this.justificationsService = justificationsService;
+        this.expressionsService = expressionsService;
     }
 
     public List<Step> SolveExercise(String exercise) {
@@ -41,10 +46,9 @@ public class EquationResolutor implements IResolutor{
             List<EquationOption> equationOptions = new ArrayList<>();
             equationOptions.add(new EquationOption(newEquationBase, EquationOptionType.LATEX));
 
-            //TODO: Mover getRootOfEquation a un nuevo service (ExpressionsService)
-            String comparatorOperator = getRootOfEquation(newEquationBase);
+            String comparatorOperator = expressionsService.getRootOfEquation(newEquationBase);
 
-            Map<String, String> justifications = JustificationsService.getCorrectJustificationsFrom(e.getChangeType(), comparatorOperator);
+            Map<String, String> justifications = justificationsService.getCorrectJustificationsFrom(e.getChangeType(), comparatorOperator);
 
             // Justificación general
             String option =  justifications.get("option");
@@ -59,23 +63,33 @@ public class EquationResolutor implements IResolutor{
             result.add(multipleChoiceStep);
         }
 
+        //Conclusion
+        String lastEquation = steps.get(steps.size() - 1).getNewEquation().toExpression();
+        String comparatorOperator = expressionsService.getRootOfEquation(lastEquation);
+        String[] members = lastEquation.split(comparatorOperator);
+
+        //Obtengo el enum que indica el tipo de resolucion
+        String contextOfResolution = getContextOfResolution(members, comparatorOperator, lastEquation);
+
+        //Obtengo los textos relacionados a ese tipo de resolucion
+        Map<String, String> contextOfResolutionTexts = justificationsService.getContextOfResolutionTexts(contextOfResolution);
+
+        contextOfResolutionTexts = fixContextOfResolution(contextOfResolution, members, comparatorOperator, lastEquation, contextOfResolutionTexts);
+
+        //Armo la conclusión
+        List<EquationOption> equationOptions = new ArrayList<>();
+
+        equationOptions.add(new EquationOption(contextOfResolutionTexts.get("first"), EquationOptionType.TEXT));
+
+        EquationStatus originalEquation = steps.get(0);
+        equationOptions.add(new EquationOption(originalEquation.getOldEquation().toExpression(), EquationOptionType.LATEX));
+
+        equationOptions.add(new EquationOption(contextOfResolutionTexts.get("second"), EquationOptionType.TEXT));
+
+        Step conclusion = new Step("Conclusión:", equationOptions, null);
+        result.add(conclusion);
+
         return result;
-    }
-
-    public static String getRootOfEquation(String infixEquation){
-        if(infixEquation.contains("<=")){
-            return "<=";
-        }else if(infixEquation.contains(">=")){
-            return ">=";
-        }else if(infixEquation.contains("<")){
-            return "<";
-        }else if(infixEquation.contains(">")){
-            return ">";
-        }else if(infixEquation.contains("!=")){
-            return "!=";
-        }
-
-        return "=";
     }
 
     private Tree getTree(String exercise) {
@@ -88,6 +102,118 @@ public class EquationResolutor implements IResolutor{
         }
 
         return tree;
+    }
+
+    private String getContextOfResolution(String[] members, String comparatorOperator, String lastEquation) {
+        String contextOfResolution = "";
+
+        // Equation
+        if(!"I".equals(members[0]) && comparatorOperator.equals("=")){
+            if(members[0].equals(members[1])){
+                contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS;
+            }else if(members[0].toUpperCase().equals("X")){
+                contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS;
+            }else{
+                try{
+                    Double.parseDouble(members[0]);
+                    Double.parseDouble(members[1]);
+                    contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS;
+                }catch (Exception e){
+                    try{
+                        Double.parseDouble(members[1]);
+                        if(members[0].toUpperCase().contains("X")){
+                            contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS;
+                        }
+                    }catch (Exception e2){
+                        // Raíces múltiples
+                        contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS;
+                    }
+                }
+            }
+        }else{ // Inequation
+            if(members[0].equals(members[1])){
+                if(lastEquation.contains("=")){
+                    // Ejemplo: 2 >= 2. En este caso, no hay inecuación (el > nunca se cumple)
+                    contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_INFINITE_SOLUTIONS;
+                }else{
+                    // Ejemplo: 2 > 2. En este caso, no hay inecuación (el > nunca se cumple). Se podría decir que es una ecuación con 0 soluciones
+                    contextOfResolution = CONTEXT_OF_RESOLUTION_IS_EQUATION_WITHOUT_SOLUTIONS;
+                }
+            }else if(members[1].equals("VACIO")){
+                contextOfResolution = CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS;
+            }else{
+                contextOfResolution = CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS;
+            }
+        }
+
+        return contextOfResolution;
+    }
+
+    private Map<String, String> fixContextOfResolution(String contextOfResolution,  String[] members, String comparatorOperator, String lastEquation, Map<String, String> contextOfResolutionTexts ) {
+        switch (contextOfResolution){
+            case CONTEXT_OF_RESOLUTION_IS_EQUATION_WITH_FINITE_SOLUTIONS:
+                contextOfResolutionTexts = justificationsService.fixResolutionTextsForRoots(contextOfResolutionTexts, lastEquation);
+                break;
+            case CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITH_INTERVAL_SOLUTIONS:
+                members = lastEquation.split(comparatorOperator);
+                try{
+                    Double valDer = Double.parseDouble(members[1]);
+                    StringBuilder interval = new StringBuilder("");
+
+                    try{
+                        // Si existe valor izquierdo, es una inecuación del estilo 2>1
+                        Double valIzq = Double.parseDouble(members[0]);
+                        if(valIzq.equals(valDer)){
+                            if(comparatorOperator.contains("=")){
+                                interval.append("{ ");
+                                interval.append(valDer);
+                                interval.append(" }");
+                            }
+                        }else{
+                            if(comparatorOperator.contains(">")){
+                                if(valIzq >= valDer){
+                                    interval.append("(-∞, ∞)");
+                                }else{
+                                    contextOfResolutionTexts = justificationsService.getContextOfResolutionTexts(CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS);
+                                }
+                            }else if(comparatorOperator.contains("<")){
+                                if(valIzq <= valDer){
+                                    interval.append("(-∞, ∞)");
+                                }else{
+                                    contextOfResolutionTexts = justificationsService.getContextOfResolutionTexts(CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS);
+                                }
+                            }
+                        }
+                        contextOfResolutionTexts = justificationsService.replacePatterns(contextOfResolutionTexts, "second", "/intervalos/", interval.toString());
+                    }catch (Exception e2){
+                        // En este caso, el miembro izquierdo no es numérico
+
+                        // Cuando el intervalo es un número. Ejemplo: x^2 <= 0 --> solo el 0 cumple
+                        if("=".equals(comparatorOperator)){
+                            interval.append("{ ");
+                            interval.append(valDer);
+                            interval.append(" }");
+                        }else{
+                            // Generar el intervalo solución cuando se tiene una cuadrática sin raíces
+                            interval.append(expressionsService.getIntervalFrom(lastEquation));
+                        }
+                        if(interval.toString().isEmpty()){
+                            contextOfResolutionTexts = justificationsService.getContextOfResolutionTexts(CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS);
+                        }
+                        contextOfResolutionTexts = justificationsService.replacePatterns(contextOfResolutionTexts, "second", "/intervalos/", interval.toString());
+                    }
+                }catch (Exception e){
+                    // En este caos, tengo un intervalo solución, ejemplo: I=(3, +INF)
+                    String interval = members[1].replace("INF", "∞");
+                    contextOfResolutionTexts = justificationsService.replacePatterns(contextOfResolutionTexts, "second", "/intervalos/", interval);
+                }
+                break;
+            case CONTEXT_OF_RESOLUTION_IS_INEQUATION_WITHOUT_SOLUTIONS:
+                contextOfResolutionTexts = justificationsService.replacePatterns(contextOfResolutionTexts, "second", "/intervalos/", "");
+                break;
+        }
+
+        return contextOfResolutionTexts;
     }
 
     protected List<EquationStatus> stepThrough(Tree equation, Boolean debug){
