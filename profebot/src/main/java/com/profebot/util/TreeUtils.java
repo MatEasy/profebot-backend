@@ -1,9 +1,9 @@
-package com.profebot.utils;
+package com.profebot.util;
 
 import com.profebot.service.SimplifyService;
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.structures.resolutorStructures.OperatorLevel;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.structure.resolutorStructures.OperatorLevel;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;

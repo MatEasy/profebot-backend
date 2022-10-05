@@ -1,6 +1,6 @@
 package com.profebot.service;
 
-import com.profebot.structures.resolutorStructures.NodeStatus;
+import com.profebot.structure.resolutorStructures.NodeStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Map;
 import static com.profebot.enums.Conclusion.*;
 import static com.profebot.enums.ContextOfResolution.*;
 import static com.profebot.enums.Justification.*;
-import static com.profebot.structures.resolutorStructures.NodeStatus.ChangeTypes.*;
+import static com.profebot.structure.resolutorStructures.NodeStatus.ChangeTypes.*;
 
 public class JustificationsService {
 

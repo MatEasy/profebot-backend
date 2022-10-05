@@ -1,4 +1,4 @@
-package com.profebot.structures.resolutorStructures;
+package com.profebot.structure.resolutorStructures;
 
 import java.util.HashMap;
 import java.util.Map;

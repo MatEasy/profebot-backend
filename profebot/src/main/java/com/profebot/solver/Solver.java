@@ -1,13 +1,13 @@
-package com.profebot.solvers;
+package com.profebot.solver;
 
-import com.profebot.exceptions.InvalidExpressionException;
+import com.profebot.exception.InvalidExpressionException;
 import com.profebot.parser.Parser;
 import com.profebot.service.SimplifyService;
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.structures.resolutorStructures.EquationStatus;
-import com.profebot.structures.resolutorStructures.NodeStatus;
-import com.profebot.utils.TreeUtils;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.structure.resolutorStructures.EquationStatus;
+import com.profebot.structure.resolutorStructures.NodeStatus;
+import com.profebot.util.TreeUtils;
 import java.util.ArrayList;
 import java.util.List;
 

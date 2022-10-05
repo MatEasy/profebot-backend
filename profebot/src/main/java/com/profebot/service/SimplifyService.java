@@ -1,10 +1,10 @@
 package com.profebot.service;
 
 import com.profebot.enums.SearchMode;
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.structures.resolutorStructures.CancelOutStatus;
-import com.profebot.structures.resolutorStructures.NodeStatus;
-import com.profebot.utils.TreeUtils;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.structure.resolutorStructures.CancelOutStatus;
+import com.profebot.structure.resolutorStructures.NodeStatus;
+import com.profebot.util.TreeUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

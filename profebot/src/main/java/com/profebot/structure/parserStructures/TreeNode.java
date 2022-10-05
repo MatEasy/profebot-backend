@@ -1,6 +1,6 @@
-package com.profebot.structures.parserStructures;
+package com.profebot.structure.parserStructures;
 
-import com.profebot.utils.TreeUtils;
+import com.profebot.util.TreeUtils;
 import java.util.ArrayList;
 import java.util.List;
 

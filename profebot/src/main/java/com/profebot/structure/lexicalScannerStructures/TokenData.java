@@ -1,4 +1,4 @@
-package com.profebot.structures.lexicalScannerStructures;
+package com.profebot.structure.lexicalScannerStructures;
 
 public class TokenData {
   private Token token;

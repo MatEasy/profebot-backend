@@ -1,4 +1,4 @@
-package com.profebot.resolutors;
+package com.profebot.resolutor;
 
 import com.profebot.model.Step;
 
