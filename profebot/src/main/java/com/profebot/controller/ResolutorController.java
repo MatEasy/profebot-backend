@@ -16,9 +16,9 @@ public class ResolutorController {
         this.resolutorService = resolutorService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/ping")
     public String HelloWorld(){
-        return "Hello World!";
+        return "pong!";
     }
 
     @PostMapping("/api/exercise-resolution")

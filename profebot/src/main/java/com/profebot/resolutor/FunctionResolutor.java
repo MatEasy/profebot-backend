@@ -1,16 +1,16 @@
-package com.profebot.resolutors;
+package com.profebot.resolutor;
 
 import com.profebot.enums.EquationOptionType;
 import com.profebot.enums.FunctionType;
-import com.profebot.exceptions.InvalidExpressionException;
+import com.profebot.exception.InvalidExpressionException;
 import com.profebot.model.EquationOption;
 import com.profebot.model.Step;
 import com.profebot.parser.Parser;
 import com.profebot.service.SimplifyService;
-import com.profebot.solvers.Solver;
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.utils.TreeUtils;
+import com.profebot.solver.Solver;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.util.TreeUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,6 @@ public class FunctionResolutor implements IResolutor {
   }
 
   public static FunctionType getFunctionType(String function) {
-
     Tree functionTree;
     FunctionType functionType;
     try {
@@ -273,7 +272,7 @@ public class FunctionResolutor implements IResolutor {
     return intervalBegin.replaceAll("x", "").replaceAll("X", "").replaceAll("=", "");
   }
 
-  private List<EquationOption> getImage(String equation, FunctionType equationType) {
+  public List<EquationOption> getImage(String equation, FunctionType equationType) {
     List<EquationOption> image = new ArrayList<>();
     switch (equationType) {
       case CONSTANT:
@@ -371,14 +370,17 @@ public class FunctionResolutor implements IResolutor {
         image.add(new EquationOption(". La imagen de la función equivale a: ", EquationOptionType.TEXT));
         image.add(new EquationOption(solution, EquationOptionType.LATEX));
         break;
+      case INVALID:
+        image.add(new EquationOption("La función es inválida.", EquationOptionType.TEXT));
       default:
-        System.out.println("Error Imagen Funcion. NO encontro ningun tipo de funcion para analizar la imagen");
+        image.add(new EquationOption("Error imagen función. No se encontró ningún tipo de función para analizar la imagen.",
+            EquationOptionType.TEXT));
         break;
     }
     return image;
   }
 
-  private List<EquationOption> getDomain(String equation, FunctionType equationType) {
+  public List<EquationOption> getDomain(String equation, FunctionType equationType) throws InvalidExpressionException {
     List<EquationOption> domain = new ArrayList<>();
     switch (equationType) {
       case HOMOGRAPHIC: {
@@ -390,8 +392,8 @@ public class FunctionResolutor implements IResolutor {
         if (denominatorMapped.get(0) == null) {
           status = "X \\neq 0";
         } else {
-          //status = (new ResolutorService()).resolveExpression(denominatorHomographic).substring(2);
-          //status = "X = " + status;
+          status = (new Solver()).resolveExpression(denominatorHomographic).substring(2);
+          status = "X = " + status;
         }
         domain.add(new EquationOption("El dominio de la función aplica a todos los reales excepto cuando:", EquationOptionType.TEXT));
         domain.add(new EquationOption(status, EquationOptionType.LATEX));
@@ -417,7 +419,7 @@ public class FunctionResolutor implements IResolutor {
     return !startWith.equals("x=");
   }
 
-  private List<EquationOption> getRoots(String equation, FunctionType equationType) {
+  public List<EquationOption> getRoots(String equation, FunctionType equationType) {
     List<EquationOption> roots = new ArrayList<>();
     switch (equationType) {
       case CONSTANT: {
@@ -474,7 +476,7 @@ public class FunctionResolutor implements IResolutor {
     return function;
   }
 
-  private List<EquationOption> getOrigin(String equation, FunctionType equationType) {
+  public List<EquationOption> getOrigin(String equation, FunctionType equationType) {
     List<EquationOption> origin = new ArrayList<>();
     String function;
     if (equationType == FunctionType.HOMOGRAPHIC) {
@@ -518,8 +520,13 @@ public class FunctionResolutor implements IResolutor {
     if (functionType.equals(FunctionType.INVALID)) {
       throw new RuntimeException("¡Funcion invalida!");
     }
-    Step domainStep = new Step("Dominio:", getDomain(exercise, functionType),
-        "En matemáticas, el dominio (conjunto de definición o conjunto de partida) de una función es el conjunto de existencia de ella misma, es decir, los valores para los cuales la función está definida.");
+    Step domainStep;
+    try{
+      domainStep = new Step("Dominio:", getDomain(exercise, functionType),
+          "En matemáticas, el dominio (conjunto de definición o conjunto de partida) de una función es el conjunto de existencia de ella misma, es decir, los valores para los cuales la función está definida.");
+    } catch (InvalidExpressionException e) {
+      throw new RuntimeException("¡Funcion invalida!");
+    }
     Step imageStep = new Step("Imagen:", getImage(exercise, functionType),
         "La imagen es el rango de valores de la función f(x) para los que existe un valor de x. La forma de calcularlo dependerá del tipo de función que analizamos.");
     Step rootsSteps = new Step("Raíces:", getRoots(exercise, functionType),

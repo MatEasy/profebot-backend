@@ -1,4 +1,4 @@
-package com.profebot.structures.lexicalScannerStructures;
+package com.profebot.structure.lexicalScannerStructures;
 
 public enum Acceptors {
   INICIO_ST_ACEPTORES(50), // Mayor a esto son aceptores

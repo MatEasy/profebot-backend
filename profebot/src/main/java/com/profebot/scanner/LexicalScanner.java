@@ -1,9 +1,9 @@
 package com.profebot.scanner;
 
-import com.profebot.exceptions.InvalidExpressionException;
-import com.profebot.structures.lexicalScannerStructures.Acceptors;
-import com.profebot.structures.lexicalScannerStructures.Token;
-import com.profebot.structures.lexicalScannerStructures.TokenData;
+import com.profebot.exception.InvalidExpressionException;
+import com.profebot.structure.lexicalScannerStructures.Acceptors;
+import com.profebot.structure.lexicalScannerStructures.Token;
+import com.profebot.structure.lexicalScannerStructures.TokenData;
 import java.util.ArrayList;
 import java.util.List;
 

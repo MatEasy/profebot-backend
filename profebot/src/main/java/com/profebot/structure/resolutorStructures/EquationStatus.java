@@ -1,7 +1,7 @@
-package com.profebot.structures.resolutorStructures;
+package com.profebot.structure.resolutorStructures;
 
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 

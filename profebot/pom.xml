@@ -15,6 +15,9 @@
     <description>profebot</description>
     <properties>
         <java.version>11</java.version>
+        <!-- Test versions -->
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <mockito.version>4.6.1</mockito.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,6 +29,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>${mockito.version}</version>
         </dependency>
     </dependencies>
 

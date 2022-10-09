@@ -1,6 +1,6 @@
-package com.profebot.structures.resolutorStructures;
+package com.profebot.structure.resolutorStructures;
 
-import com.profebot.structures.parserStructures.TreeNode;
+import com.profebot.structure.parserStructures.TreeNode;
 
 public class CancelOutStatus {
 

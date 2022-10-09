@@ -1,4 +1,4 @@
-package com.profebot.resolutors;
+package com.profebot.resolutor;
 
 import com.profebot.enums.EquationOptionType;
 import com.profebot.model.EquationOption;
@@ -7,11 +7,11 @@ import com.profebot.parser.Parser;
 import com.profebot.service.ExpressionsService;
 import com.profebot.service.JustificationsService;
 import com.profebot.service.SimplifyService;
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.structures.resolutorStructures.EquationStatus;
-import com.profebot.structures.resolutorStructures.NodeStatus;
-import com.profebot.utils.TreeUtils;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.structure.resolutorStructures.EquationStatus;
+import com.profebot.structure.resolutorStructures.NodeStatus;
+import com.profebot.util.TreeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

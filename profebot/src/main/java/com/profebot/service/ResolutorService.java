@@ -1,12 +1,13 @@
 package com.profebot.service;
 
 import com.profebot.enums.ExcerciseTag;
+import com.profebot.exception.InvalidExpressionException;
 import com.profebot.model.Exercise;
 import com.profebot.model.Step;
-import com.profebot.resolutors.EquationResolutor;
-import com.profebot.resolutors.FunctionResolutor;
-import com.profebot.resolutors.IResolutor;
-import com.profebot.resolutors.PolynomialResolutor;
+import com.profebot.resolutor.EquationResolutor;
+import com.profebot.resolutor.FunctionResolutor;
+import com.profebot.resolutor.IResolutor;
+import com.profebot.resolutor.PolynomialResolutor;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;

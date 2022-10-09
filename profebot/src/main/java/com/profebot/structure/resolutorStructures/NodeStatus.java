@@ -1,7 +1,7 @@
-package com.profebot.structures.resolutorStructures;
+package com.profebot.structure.resolutorStructures;
 
-import com.profebot.structures.parserStructures.TreeNode;
-import com.profebot.utils.TreeUtils;
+import com.profebot.structure.parserStructures.TreeNode;
+import com.profebot.util.TreeUtils;
 import java.util.List;
 
 public class NodeStatus {

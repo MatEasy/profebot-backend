@@ -1,10 +1,10 @@
 package com.profebot.parser;
 
-import com.profebot.exceptions.InvalidExpressionException;
+import com.profebot.exception.InvalidExpressionException;
 import com.profebot.scanner.LexicalScanner;
-import com.profebot.structures.lexicalScannerStructures.Token;
-import com.profebot.structures.parserStructures.Tree;
-import com.profebot.structures.parserStructures.TreeNode;
+import com.profebot.structure.lexicalScannerStructures.Token;
+import com.profebot.structure.parserStructures.Tree;
+import com.profebot.structure.parserStructures.TreeNode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,17 +87,17 @@ public class Parser {
 
     TreeNode primaria;
     Token Token = scannerService.prox_Token();
-    if (com.profebot.structures.lexicalScannerStructures.Token.CONSTANTE.equals(Token) ||
-        com.profebot.structures.lexicalScannerStructures.Token.LETRA_X.equals(Token)) {
+    if (com.profebot.structure.lexicalScannerStructures.Token.CONSTANTE.equals(Token) ||
+        com.profebot.structure.lexicalScannerStructures.Token.LETRA_X.equals(Token)) {
       primaria = new TreeNode(scannerService.getResultado());
       scannerService.match(Token); // Descarto la primaria
 
       // Si sigue una potencia, tiene q venir una constante
-      if (com.profebot.structures.lexicalScannerStructures.Token.POTENCIA.equals(scannerService.prox_Token())) {
+      if (com.profebot.structure.lexicalScannerStructures.Token.POTENCIA.equals(scannerService.prox_Token())) {
         primaria = getPotencia(primaria);
       }
-    } else if (com.profebot.structures.lexicalScannerStructures.Token.RAIZ.equals(Token)) {
-      scannerService.match(com.profebot.structures.lexicalScannerStructures.Token.RAIZ);
+    } else if (com.profebot.structure.lexicalScannerStructures.Token.RAIZ.equals(Token)) {
+      scannerService.match(com.profebot.structure.lexicalScannerStructures.Token.RAIZ);
       primaria = new TreeNode(scannerService.getResultado()); // El operador escaneado
       primaria.setLeftNode(new TreeNode("2")); // TODO definir si no es cuadrada
       primaria.setRightNode(getPrimaria());
@@ -105,16 +105,16 @@ public class Parser {
 
       // Si viene luego de un igual o al principio, puede ser un "-" valido
       Boolean addUnaryMinus = false;
-      if (/*scannerService.isFirstChar() &&*/ com.profebot.structures.lexicalScannerStructures.Token.RESTA.equals(Token)) {
-        scannerService.match(com.profebot.structures.lexicalScannerStructures.Token.RESTA);
+      if (/*scannerService.isFirstChar() &&*/ com.profebot.structure.lexicalScannerStructures.Token.RESTA.equals(Token)) {
+        scannerService.match(com.profebot.structure.lexicalScannerStructures.Token.RESTA);
         addUnaryMinus = true;
       }
-      scannerService.match(com.profebot.structures.lexicalScannerStructures.Token.PARENIZQUIERDO);
+      scannerService.match(com.profebot.structure.lexicalScannerStructures.Token.PARENIZQUIERDO);
       primaria = getExpression();
-      scannerService.match(com.profebot.structures.lexicalScannerStructures.Token.PARENDERECHO);
+      scannerService.match(com.profebot.structure.lexicalScannerStructures.Token.PARENDERECHO);
 
       // Si sigue una potencia, encierra el parentesis, tiene q venir una constante
-      if (com.profebot.structures.lexicalScannerStructures.Token.POTENCIA.equals(scannerService.prox_Token())) {
+      if (com.profebot.structure.lexicalScannerStructures.Token.POTENCIA.equals(scannerService.prox_Token())) {
         primaria = getPotencia(primaria);
       }
 

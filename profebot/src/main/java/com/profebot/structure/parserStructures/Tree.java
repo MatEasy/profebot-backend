@@ -1,4 +1,4 @@
-package com.profebot.structures.parserStructures;
+package com.profebot.structure.parserStructures;
 
 public class Tree {
   private TreeNode rootNode;
