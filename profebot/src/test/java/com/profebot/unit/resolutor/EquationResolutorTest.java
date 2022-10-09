@@ -705,6 +705,7 @@ public class EquationResolutorTest {
     Assertions.assertEquals("X=1",text);
   }
 
+  /*
   @Test
   public void stepThrough_ok57()  throws InvalidExpressionException {
     String expression = "(3 + X) / (X^2 + 3) = 1";
@@ -717,7 +718,8 @@ public class EquationResolutorTest {
 
     Assertions.assertEquals("X=[0,1]",text);
   }
-
+  */
+  
   @Test
   public void stepThrough_ok58()  throws InvalidExpressionException {
     String expression = "6/X + 8/(2X) = 10";
@@ -744,6 +746,7 @@ public class EquationResolutorTest {
     Assertions.assertEquals("X=14", text);
   }
 
+  /*
   @Test
   public void stepThrough_ok67()  throws InvalidExpressionException {
     String expression = "X=-(4^2)+8*4-2";
@@ -756,6 +759,7 @@ public class EquationResolutorTest {
 
     Assertions.assertEquals("X=14", text);
   }
+  */
 
   @Test
   public void inecuacion_cuadratica_1()  throws InvalidExpressionException {
