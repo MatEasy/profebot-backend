@@ -27,6 +27,9 @@ jobs:
       - name: Move directory
         run: cd profebot
         
+      - name: Check dir
+        run: ls
+        
       - name: Build with Maven
         run: mvn clean install
 
