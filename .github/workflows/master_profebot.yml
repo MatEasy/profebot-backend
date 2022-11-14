@@ -10,13 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  pre_build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Move directory
-        run: cd profebot
   build:
     runs-on: ubuntu-latest
 
@@ -27,12 +20,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-    
-      - name: Check dir
-        run: ls
-        
+          
       - name: Build with Maven
-        run: mvn clean install
+        run: 
+          cd profebot
+          mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
