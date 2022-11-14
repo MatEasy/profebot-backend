@@ -21,6 +21,9 @@ jobs:
         with:
           java-version: '11'
  
+      - name: Check dir
+        run: ls
+        
       - name: Move directory
         run: cd profebot
         
