@@ -395,7 +395,7 @@ public class FunctionResolutor implements IResolutor {
           status = (new Solver()).resolveExpression(denominatorHomographic).substring(2);
           status = "X = " + status;
         }
-        domain.add(new EquationOption("El dominio de la función aplica a todos los reales excepto cuando:", EquationOptionType.TEXT));
+        domain.add(new EquationOption("El dominio de la función aplica a todos los reales excepto cuando: ", EquationOptionType.TEXT));
         domain.add(new EquationOption(status, EquationOptionType.LATEX));
         break;
       }
