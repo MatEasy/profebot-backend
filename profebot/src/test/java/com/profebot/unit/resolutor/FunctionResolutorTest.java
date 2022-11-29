@@ -130,7 +130,7 @@ public class FunctionResolutorTest {
     List<EquationOption> result = functionResolutor.getDomain(mockedEquation, FunctionType.HOMOGRAPHIC);
     Assertions.assertNotNull(result);
     Assertions.assertEquals(result.size(), 2);
-    Assertions.assertEquals(result.get(0).getContent(), "El dominio de la función aplica a todos los reales excepto cuando:");
+    Assertions.assertEquals(result.get(0).getContent(), "El dominio de la función aplica a todos los reales excepto cuando: ");
     Assertions.assertEquals(result.get(0).getEquationOptionType(), EquationOptionType.TEXT);
     Assertions.assertEquals(result.get(1).getContent(), "X = -2");
     Assertions.assertEquals(result.get(1).getEquationOptionType(), EquationOptionType.LATEX);
