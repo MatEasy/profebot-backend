@@ -771,7 +771,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-1)U(-1,INF)", text);
+    Assertions.assertEquals("I=(-∞,-1)U(-1,∞)", text);
   }
 
   @Test
@@ -784,7 +784,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,INF)", text);
+    Assertions.assertEquals("I=(-∞,∞)", text);
   }
 
   @Test
@@ -797,7 +797,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-3)U(5,INF)", text);
+    Assertions.assertEquals("I=(-∞,-3)U(5,∞)", text);
   }
 
   @Test
@@ -810,7 +810,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-3]U[5,INF)", text);
+    Assertions.assertEquals("I=(-∞,-3]U[5,∞)", text);
   }
 
   @Test
@@ -849,7 +849,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-2]U[2,INF)", text);
+    Assertions.assertEquals("I=(-∞,-2]U[2,∞)", text);
   }
 
   @Test
@@ -862,7 +862,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-16)U(4,INF)", text);
+    Assertions.assertEquals("I=(-∞,-16)U(4,∞)", text);
   }
 
   @Test
@@ -875,7 +875,7 @@ public class EquationResolutorTest {
 
     var text = solution.get(0).getContent();
 
-    Assertions.assertEquals("I=(-INF,-9)U(0,INF)", text);
+    Assertions.assertEquals("I=(-∞,-9)U(0,∞)", text);
   }
 
   @Test

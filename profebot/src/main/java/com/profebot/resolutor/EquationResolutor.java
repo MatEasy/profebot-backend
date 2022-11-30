@@ -44,7 +44,7 @@ public class EquationResolutor implements IResolutor{
             String newEquationBase = e.getNewEquation().toExpression();
 
             List<EquationOption> equationOptions = new ArrayList<>();
-            equationOptions.add(new EquationOption(newEquationBase, EquationOptionType.LATEX));
+            equationOptions.add(new EquationOption(newEquationBase.replace("INF", "∞"), EquationOptionType.LATEX));
 
             String comparatorOperator = expressionsService.getRootOfEquation(newEquationBase);
 
