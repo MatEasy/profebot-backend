@@ -51,5 +51,5 @@ jobs:
         with:
           app-name: 'profebot'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0F422F4578954533910451D0CCF739AC }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: '*.jar'
